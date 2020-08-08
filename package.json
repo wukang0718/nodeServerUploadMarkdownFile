@@ -7,14 +7,13 @@
     "chokidar": "^3.4.2",
     "log4js": "^6.3.0",
     "node-notifier": "^7.0.2",
-    "node-watch": "^0.6.4",
-    "pm2": "^4.4.0",
+    "node-windows": "^1.0.0-beta.5",
     "simple-git": "^2.17.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "pm2 start app.js && pm2 save && pm2 startup"
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC"
