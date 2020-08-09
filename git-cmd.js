@@ -13,6 +13,7 @@ let gitEntity = git(dirPath)
  */
 function gitPush() {
     gitPull().then(() => {
+        logger.info("开始提交到github");
         gitEntity
             .add('./*')
             .commit(commitMessage)
@@ -33,6 +34,7 @@ function gitPush() {
  * git更新
  */
 function gitPull() {
+    logger.info("开始从github更新");
     return gitEntity
         .pull(remote, branch)
         .then(() => {

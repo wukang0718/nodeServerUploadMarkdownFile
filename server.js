@@ -1,11 +1,12 @@
 const logger = require("./log");
 const toast = require("./toast");
+const path = require("path");
 const Service = require("node-windows").Service;
 
 const svc = new Service({
     name: "nodejsUploadMarkdownToGithub",
     description: "nodejs脚本自动上传文件到github",
-    script: require("path").join(__dirname, "app.js"),
+    script: path.resolve(__dirname, "app.js"),
     wait: 1,
     grow: 0.25,
     maxRestarts: 40
@@ -29,4 +30,13 @@ svc.on("error", (err) => {
     toast("自启动服务异常");
 })
 
-svc.install();
+svc.on("start", () => {
+    logger.info("自启动脚本，启动服务");
+})
+
+const args = process.argv.slice(2);
+if (args[0] === "uninstall") {
+    svc.uninstall();
+} else {
+    svc.install();
+}
