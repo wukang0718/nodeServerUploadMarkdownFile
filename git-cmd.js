@@ -1,5 +1,4 @@
 const git = require('simple-git');
-const toast = require("./toast");
 const { dirPath, branch, commitMessage, remote } = require("./config.json");
 const logger = require('./log');
 
@@ -24,7 +23,6 @@ function gitPush() {
             .catch(err => {
                 logger.error(`Push to ${branch} error`);
                 logger.error(err);
-                toast(`Push to ${branch} error`);
             })
 
     })
@@ -43,18 +41,17 @@ function gitPull() {
         .catch(err => {
             logger.error(`Pull to ${branch} error`);
             logger.error(err);
-            toast(`Pull to ${branch} error`);
         });
 }
 
 /**
  * 延时执行函数, 延迟3秒
  */
-const delayMethod = function (type) {
+const delayMethod = function(type) {
     let timer;
-    return function () {
+    return function() {
         clearTimeout(timer);
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
             gitCmd[type]();
             clearTimeout(timer);
         }, 3000)
@@ -71,7 +68,7 @@ const gitCmd = {
 }
 
 
-module.exports = function (type, immediately) {
+module.exports = function(type, immediately) {
     if (immediately) {
         return gitCmd[type]();
     } else {

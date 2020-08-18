@@ -1,6 +1,6 @@
 {
-    "dirPath": "D:/markdownFile",
-    "commitMessage": "笔记本设置nodejs脚本自动提交",
+    "dirPath": "D:/武康/markdown文件",
+    "commitMessage": "公司电脑设置nodejs脚本自动提交",
     "repo": "wukang0718/markdownFile",
     "branch": "master",
     "remote": "origin"
