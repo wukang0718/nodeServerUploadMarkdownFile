@@ -1,5 +1,5 @@
 const git = require('simple-git');
-const { dirPath, branch, commitMessage, remote } = require("./config.json");
+const { dirPath, branch, commitMessage, remote } = require(`./config/${process.env.config || "config"}.json`);
 const logger = require('./log');
 
 /**

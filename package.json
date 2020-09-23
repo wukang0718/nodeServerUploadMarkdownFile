@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "chokidar": "^3.4.2",
+    "cross-env": "^7.0.2",
     "log4js": "^6.3.0",
     "node-notifier": "^7.0.2",
     "node-windows": "^1.0.0-beta.5",
@@ -13,9 +14,12 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node app.js",
     "start": "node server.js",
-    "uninstall": "node server.js uninstall"
+    "mindMaster": "cross-env config=mindMaster node server.js",
+    "uninstall": "node server.js uninstall",
+    "pm2:mindMaster": "cross-env config=mindMaster node app.js",
+    "pm2:start": "node app.js"
   },
   "author": "",
   "license": "ISC"

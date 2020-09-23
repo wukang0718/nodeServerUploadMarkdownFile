@@ -1,7 +1,7 @@
 const invokeGit = require("./git-cmd");
 const logger = require("./log");
 const watch = require("./watchFile");
-const { dirPath } = require("./config.json");
+const { dirPath } = require(`./config/${process.env.config || "config"}.json`);
 
 logger.info('服务启动成功');
 
