@@ -8,24 +8,42 @@ const logger = require('./log');
 let gitEntity = git(dirPath)
 
 /**
+ * 初始化 推送 队列
+ */
+let queueNumber = 0;
+
+/**
  * git提交，要先更新在提交
  */
 function gitPush() {
-    gitPull().then(() => {
-        logger.info("开始提交到github");
-        gitEntity
-            .add('./*')
-            .commit(commitMessage)
-            .push([remote, branch])
-            .then(() => {
-                logger.info(`Push to ${branch} success`);
-            })
-            .catch(err => {
-                logger.error(`Push to ${branch} error`);
-                logger.error(err);
-            })
-
-    })
+    queueNumber++;
+    const push = () => {
+        gitPull().then(() => {
+            logger.info("开始提交到github");
+            gitEntity
+                .add('./*')
+                .commit(commitMessage)
+                .push([remote, branch])
+                .then(() => {
+                    logger.info(`Push to ${branch} success`);
+                })
+                .catch(err => {
+                    logger.error(`Push to ${branch} error`);
+                    logger.error(err);
+                })
+                .finally(() => {
+                    queueNumber--;
+                    // 还有其他的提交请求
+                    if(queueNumber) {
+                        push()
+                    }
+                })
+        })
+    }
+    if (queueNumber === 1) {
+        // 第一个进入队列 直接提交
+        push()
+    }
 }
 
 /**
