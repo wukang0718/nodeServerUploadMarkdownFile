@@ -18,7 +18,8 @@ let queueNumber = 0;
 function gitPush() {
     queueNumber++;
     const push = () => {
-        gitPull().then(() => {
+        gitPull().then((status) => {
+            if (!status) { return }
             logger.info("开始提交到github");
             gitEntity
                 .add('./*')
@@ -59,6 +60,7 @@ function gitPull() {
         .catch(err => {
             logger.error(`Pull to ${branch} error`);
             logger.error(err);
+            return false
         });
 }
 
