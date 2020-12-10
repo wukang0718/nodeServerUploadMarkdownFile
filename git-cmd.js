@@ -56,6 +56,7 @@ function gitPull() {
         .pull(remote, branch)
         .then(() => {
             logger.info(`Pull to ${branch} success`);
+            return true
         })
         .catch(err => {
             logger.error(`Pull to ${branch} error`);
